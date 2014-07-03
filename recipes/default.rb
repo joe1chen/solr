@@ -82,12 +82,10 @@ end
 jetty_major_version = 8
 if /^9.*/.match(node['jetty']['version'])
   jetty_major_version = 9
-  war_target_path = File.join(node['jetty']['webapps'],'solr.war')
-else
-  war_target_path = File.join(node['jetty']['webapps'],node['solr']['war'])
 end
+war_target_path = File.join(node['solr']['home'],node['solr']['war'])
 
-ruby_block 'Copy Solr war into Jetty webapps folder' do
+ruby_block "Copy Solr war into Solr home folder" do
   block do
     Chef::Log.info "Copying #{node['solr']['war']} to #{war_target_path}"
 
